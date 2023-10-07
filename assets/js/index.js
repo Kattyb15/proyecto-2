@@ -1,30 +1,28 @@
 console.log("Entro index.js");
 
-let tareas = JSON.parse(localStorage.getItem("peliculas")) || [];
-// Estos son las referencias a mis inputs
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+
 const inputTitulo = document.getElementById("inputTitulo");
 const inputDiadeentrega = document.getElementById("inputDiadeentrega");
 const inputMateria = document.getElementById("inputMateria");
 const inputSinopsis = document.getElementById("inputSinopsis");
 
-// Estas son las referencias a mis botones
 const btnAgregar = document.getElementById("btnAgregar");
 const btnBorrarTodo = document.getElementById("btnBorrarTodo");
 
-const divtareas = document.getElementById("divPeliculas");
-const alertSinTareas = document.getElementById("alertSinPeliculas");
+const divtareas = document.getElementById("divTareas");
+const alertSinTareas = document.getElementById("alertSinTareas");
 
 let indexEditar = null;
 
 class Tarea {
     constructor(titulo, diadeentrega, materia, sinopsis) {
         this.titulo = titulo;
-        this.diadeentrega= diadeentrega;
+        this.diadeentrega = diadeentrega;
         this.materia = materia;
         this.sinopsis = sinopsis;
     }
 }
-
 
 function guardarTarea() {
     let titulo = inputTitulo.value;
@@ -38,34 +36,27 @@ function guardarTarea() {
         materia,
         sinopsis
     );
-    console.log(tarea);
 
     if (indexEditar === null) {
-        console.log("Agregar tarea");
         tareas.push(tarea);
     } else {
         tareas[indexEditar] = tarea;
         indexEditar = null;
-        console.log("Editar tarea");
     }
     limpiarFormularioTareas();
-    localStorage.setItem("tareas", JSON.stringify(tareas))
-    console.log("Entro funcion guardar tareas");
+    localStorage.setItem("tareas", JSON.stringify(tareas));
     mostrarTareas();
 }
 
 function borrarTodo() {
-    console.log("Entro a brorar todo");
     localStorage.clear();
     tareas = [];
     mostrarTareas();
-    alert("Se borrraron las tareas");
+    alert("Se borraron las tareas");
 }
 
 function editarTarea(index) {
-    console.log("Entro editar tarea:" + index);
     let tareaAEditar = tareas[index];
-    console.log(tareaAEditar, "tareaAEditar");
     inputTitulo.value = tareaAEditar.titulo;
     inputDiadeentrega.value = tareaAEditar.diadeentrega;
     inputMateria.value = tareaAEditar.materia;
@@ -74,9 +65,8 @@ function editarTarea(index) {
 }
 
 function eliminarTarea(index) {
-    console.log("Entro elimnar tarea:" + index);
     tareas.splice(index, 1);
-    localStorage.setItem("tarea",JSON.stringify(tareas));
+    localStorage.setItem("tareas", JSON.stringify(tareas));
     mostrarTareas();
 }
 
@@ -120,7 +110,6 @@ function limpiarFormularioTareas() {
     inputMateria.value = "";
     inputSinopsis.value = "";
 }
-
 
 btnAgregar.addEventListener("click", guardarTarea);
 btnBorrarTodo.addEventListener("click", borrarTodo);
