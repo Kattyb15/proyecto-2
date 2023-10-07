@@ -19,7 +19,7 @@ let indexEditar = null;
 class Tarea {
     constructor(titulo, diadeentrega, materia, sinopsis) {
         this.titulo = titulo;
-        this.diadeentrega= Diadeentrega;
+        this.diadeentrega= diadeentrega;
         this.materia = materia;
         this.sinopsis = sinopsis;
     }
@@ -50,15 +50,15 @@ function guardarTarea() {
     }
     limpiarFormularioTareas();
     localStorage.setItem("tareas", JSON.stringify(tareas))
-    console.log("Entro funcion guardar tarea");
-    mostrarTarea();
+    console.log("Entro funcion guardar tareas");
+    mostrarTareas();
 }
 
 function borrarTodo() {
     console.log("Entro a brorar todo");
     localStorage.clear();
     tareas = [];
-    mostrarTarea();
+    mostrarTareas();
     alert("Se borrraron las tareas");
 }
 
@@ -71,7 +71,6 @@ function editarTarea(index) {
     inputMateria.value = tareaAEditar.materia;
     inputSinopsis.value = tareaAEditar.sinopsis;
     indexEditar = index;
-    // Reto: separa la funcionalidad de llenar el formulario a una funcion individual como lo hicimos con la de limpiarFormularioPeliculas
 }
 
 function eliminarTarea(index) {
@@ -126,4 +125,4 @@ function limpiarFormularioTareas() {
 btnAgregar.addEventListener("click", guardarTarea);
 btnBorrarTodo.addEventListener("click", borrarTodo);
 
-mostrarTarea();
+mostrarTareas();
