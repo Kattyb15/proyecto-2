@@ -3,38 +3,29 @@ console.log("Entro index.js");
 let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 
 const inputTitulo = document.getElementById("inputTitulo");
-const inputDiadeentrega = document.getElementById("inputDiadeentrega");
-const inputMateria = document.getElementById("inputMateria");
-const inputSinopsis = document.getElementById("inputSinopsis");
+const inputDescripcion = document.getElementById("inputDescripcion");
 
 const btnAgregar = document.getElementById("btnAgregar");
 const btnBorrarTodo = document.getElementById("btnBorrarTodo");
 
-const divtareas = document.getElementById("divTareas");
-const alertSinTareas = document.getElementById("alertSinTareas");
+const divTareas = document.getElementById("divTareas");
 
 let indexEditar = null;
 
 class Tarea {
-    constructor(titulo, diadeentrega, materia, sinopsis) {
+    constructor(titulo, descripcion) {
         this.titulo = titulo;
-        this.diadeentrega = diadeentrega;
-        this.materia = materia;
-        this.sinopsis = sinopsis;
+        this.descripcion = descripcion;
     }
 }
 
 function guardarTarea() {
     let titulo = inputTitulo.value;
-    let diadeentrega = inputDiadeentrega.value;
-    let materia = inputMateria.value;
-    let sinopsis = inputSinopsis.value;
+    let descripcion = inputDescripcion.value;
 
     let tarea = new Tarea(
         titulo,
-        diadeentrega,
-        materia,
-        sinopsis
+        descripcion
     );
 
     if (indexEditar === null) {
@@ -58,9 +49,7 @@ function borrarTodo() {
 function editarTarea(index) {
     let tareaAEditar = tareas[index];
     inputTitulo.value = tareaAEditar.titulo;
-    inputDiadeentrega.value = tareaAEditar.diadeentrega;
-    inputMateria.value = tareaAEditar.materia;
-    inputSinopsis.value = tareaAEditar.sinopsis;
+    inputDescripcion.value = tareaAEditar.descripcion;
     indexEditar = index;
 }
 
@@ -72,21 +61,20 @@ function eliminarTarea(index) {
 
 function mostrarTareas() {
     if (tareas.length === 0) {
-        divtareas.innerHTML = `
+        divTareas.innerHTML = `
         <div class="alert alert-info" role="alert" id="alertSinTareas">
             No hay tareas agregadas
         </div>`;
     } else {
-        divtareas.innerHTML = "";
+        divTareas.innerHTML = "";
         tareas.forEach((tarea, index) => {
-            divtareas.innerHTML += `
+            divTareas.innerHTML += `
                 <div class="card mb-3">
                    <div class="row g-0">
                       <div class="col-md-8">
                          <div class="card-body">
                             <h5 class="card-title">${tarea.titulo}</h5>
-                            <h6 class="card-subtitle mb-2 text-body-success">${tarea.diadeentrega} - ${tarea.materia}</h6>
-                            <p class="card-text">${tarea.sinopsis}</p>
+                            <p class="card-text">${tarea.descripcion}</p>
                             <div class="row mb-2">
                                <div class="col">
                                   <button class="btn btn-info w-100 mt-2" type="button" id="editar-${index}" onclick="editarTarea(${index})">Editar</button>
@@ -106,9 +94,7 @@ function mostrarTareas() {
 
 function limpiarFormularioTareas() {
     inputTitulo.value = "";
-    inputDiadeentrega.value = "";
-    inputMateria.value = "";
-    inputSinopsis.value = "";
+    inputDescripcion.value = "";
 }
 
 btnAgregar.addEventListener("click", guardarTarea);
