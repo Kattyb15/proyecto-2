@@ -2,7 +2,7 @@ function guardarTarea() {
     let titulo = inputTitulo.value;
     let descripcion = inputDescripcion.value;
 
-    let tarea = new Tarea(
+    let tarea = new tarea(
         titulo,
         descripcion
     );
